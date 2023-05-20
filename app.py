@@ -3,15 +3,12 @@ from transformers import AutoTokenizer, AutoModelForSeq2SeqLM
 import requests
 import secrets_1 as py_secrets
 
-# Load Pegasus tokenizer and model
+#=========================== Load Pegasus tokenizer and model ======================================
 tokenizer = AutoTokenizer.from_pretrained(
-    "Abishani/NLP_summarization_model1", use_auth_token=py_secrets.access_token
-    #after making the model public remove the use_auth_token parameter
-    
-
+    "Abishani/amrs-cineresum-summarizer", use_auth_token=py_secrets.access_token
 )
 model = AutoModelForSeq2SeqLM.from_pretrained(
-    "Abishani/NLP_summarization_model1", use_auth_token=py_secrets.access_token
+    "Abishani/amrs-cineresum-summarizer", use_auth_token=py_secrets.access_token
 )
 max_length = 100
 min_length = 80
@@ -32,7 +29,7 @@ def pegasus_summarize(text):
     return summary
 
 
-# =============== API call =====================#
+# ======================================= API call ================================= #
 def API_call(movie_name):
     API_KEY = py_secrets.api_key
 
@@ -56,32 +53,28 @@ def API_call(movie_name):
             reviews = [item["content"] for item in reviews_response["items"]]
             review_text = "\n".join(reviews)
 
-            # summarize the combine reviews and generate the summary using pegasus.summarize()
+            # print the movie name from the api call
+            st.title(search_results[0]['title'])
+
             summary = pegasus_summarize(review_text)
             st.write("Summary: ")
             st.write(summary)
 
-             #storing the summary in the streamlit using st.cache
-            @st.cache
-            def save_summary(summary):
-                return summary
-            save_summary(summary)
-
-
+            # print the movie image from the api call
+            st.image(search_results[0]['image'])
 
         else:
             print('No search results found.')
 
 
-# =============== Display UI ==================
+# =============================== Display UI ============================
 st.title("CineReSum 📽️")
 movie_name = st.text_area("Enter the movie name 👇", height=100)
 
 
-# summarize button
+# ========================== summarize button ==========================
 if st.button("Summarize"):
     API_call(movie_name)
-
 
 
 # Hide hamburger menu
