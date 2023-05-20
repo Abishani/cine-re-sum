@@ -3,7 +3,7 @@ from transformers import AutoTokenizer, AutoModelForSeq2SeqLM
 import requests
 import secrets_1 as py_secrets
 
-#=========================== Load Pegasus tokenizer and model ======================================
+#=========================== Load Pegasus tokenizer and model =============================
 tokenizer = AutoTokenizer.from_pretrained(
     "Abishani/amrs-cineresum-summarizer", use_auth_token=py_secrets.access_token
 )
