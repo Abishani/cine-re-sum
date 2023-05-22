@@ -4,10 +4,10 @@ import requests
 
 # # =========================== Load Pegasus tokenizer and model =============================
 tokenizer = AutoTokenizer.from_pretrained(
-    "Abishani/NLP_summarization_model1"
+    "Abishani/amrs-cineresum-summarizer", use_auth_token=st.secrets["access_token"]
 )
 model = AutoModelForSeq2SeqLM.from_pretrained(
-    "Abishani/NLP_summarization_model1"
+    "Abishani/amrs-cineresum-summarizer", use_auth_token=st.secrets["access_token"]
 )
 max_length = 100
 min_length = 80
