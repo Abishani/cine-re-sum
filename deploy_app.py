@@ -1,31 +1,31 @@
 import streamlit as st
-# from transformers import AutoTokenizer, AutoModelForSeq2SeqLM
+from transformers import AutoTokenizer, AutoModelForSeq2SeqLM
 import requests
 
 # # =========================== Load Pegasus tokenizer and model =============================
-# tokenizer = AutoTokenizer.from_pretrained(
-#     "Abishani/amrs-cineresum-summarizer", use_auth_token=st.secrets["access_token"]
-# )
-# model = AutoModelForSeq2SeqLM.from_pretrained(
-#     "Abishani/amrs-cineresum-summarizer", use_auth_token=st.secrets["access_token"]
-# )
-# max_length = 100
-# min_length = 80
+tokenizer = AutoTokenizer.from_pretrained(
+    "Abishani/NLP_summarization_model1"
+)
+model = AutoModelForSeq2SeqLM.from_pretrained(
+    "Abishani/NLP_summarization_model1"
+)
+max_length = 100
+min_length = 80
 
 
 # # =============== PEGASUS Summarization function ==================#
-# def pegasus_summarize(text):
-#     tokens = tokenizer(text, truncation=True,
-#                        padding="longest", return_tensors="pt")
-#     gen = model.generate(
-#         **tokens,
-#         max_length=max_length,
-#         min_length=min_length,
-#         do_sample=True,
-#         num_return_sequences=1,
-#     )
-#     summary = tokenizer.decode(gen[0], skip_special_tokens=True)
-#     return summary
+def pegasus_summarize(text):
+    tokens = tokenizer(text, truncation=True,
+                       padding="longest", return_tensors="pt")
+    gen = model.generate(
+        **tokens,
+        max_length=max_length,
+        min_length=min_length,
+        do_sample=True,
+        num_return_sequences=1,
+    )
+    summary = tokenizer.decode(gen[0], skip_special_tokens=True)
+    return summary
 
 
 # ======================================= API call ================================= #
@@ -55,9 +55,9 @@ def API_call(movie_name):
             # print the movie name from the api call
             st.title(search_results[0]['title'])
 
-            # summary = pegasus_summarize(review_text)
+            summary = pegasus_summarize(review_text)
             st.write("Summary: ")
-            # st.write(summary)
+            st.write(summary)
 
             # print the movie image from the api call
             st.image(search_results[0]['image'])
