@@ -4,10 +4,10 @@ import requests
 
 # =========================== Load Pegasus tokenizer and model =============================
 tokenizer = AutoTokenizer.from_pretrained(
-    "Abishani/amrs-cineresum-summarizer", use_auth_token=st.secrets['access_token']
+    "Abishani/amrs-cineresum-summarizer", use_auth_token=st.secrets["access_token"]
 )
 model = AutoModelForSeq2SeqLM.from_pretrained(
-    "Abishani/amrs-cineresum-summarizer", use_auth_token=st.secrets['access_token']
+    "Abishani/amrs-cineresum-summarizer", use_auth_token=st.secrets["access_token"]
 )
 max_length = 100
 min_length = 80
@@ -30,7 +30,7 @@ def pegasus_summarize(text):
 
 # ======================================= API call ================================= #
 def API_call(movie_name):
-    API_KEY = st.secrets['api_key']
+    API_KEY = st.secrets["api_key"]
 
     # Search for the movie using the SearchMovie endpoint
     search_url = f'https://imdb-api.com/en/API/SearchMovie/{API_KEY}/{movie_name}'
