@@ -1,69 +1,69 @@
 import streamlit as st
-from transformers import AutoTokenizer, AutoModelForSeq2SeqLM
-import requests
+# from transformers import AutoTokenizer, AutoModelForSeq2SeqLM
+# import requests
 
-# =========================== Load Pegasus tokenizer and model =============================
-tokenizer = AutoTokenizer.from_pretrained(
-    "Abishani/amrs-cineresum-summarizer", use_auth_token=st.secrets["access_token"]
-)
-model = AutoModelForSeq2SeqLM.from_pretrained(
-    "Abishani/amrs-cineresum-summarizer", use_auth_token=st.secrets["access_token"]
-)
-max_length = 100
-min_length = 80
-
-
-# =============== PEGASUS Summarization function ==================#
-def pegasus_summarize(text):
-    tokens = tokenizer(text, truncation=True,
-                       padding="longest", return_tensors="pt")
-    gen = model.generate(
-        **tokens,
-        max_length=max_length,
-        min_length=min_length,
-        do_sample=True,
-        num_return_sequences=1,
-    )
-    summary = tokenizer.decode(gen[0], skip_special_tokens=True)
-    return summary
+# # =========================== Load Pegasus tokenizer and model =============================
+# tokenizer = AutoTokenizer.from_pretrained(
+#     "Abishani/amrs-cineresum-summarizer", use_auth_token=st.secrets["access_token"]
+# )
+# model = AutoModelForSeq2SeqLM.from_pretrained(
+#     "Abishani/amrs-cineresum-summarizer", use_auth_token=st.secrets["access_token"]
+# )
+# max_length = 100
+# min_length = 80
 
 
-# ======================================= API call ================================= #
-def API_call(movie_name):
-    API_KEY = st.secrets["api_key"]
+# # =============== PEGASUS Summarization function ==================#
+# def pegasus_summarize(text):
+#     tokens = tokenizer(text, truncation=True,
+#                        padding="longest", return_tensors="pt")
+#     gen = model.generate(
+#         **tokens,
+#         max_length=max_length,
+#         min_length=min_length,
+#         do_sample=True,
+#         num_return_sequences=1,
+#     )
+#     summary = tokenizer.decode(gen[0], skip_special_tokens=True)
+#     return summary
 
-    # Search for the movie using the SearchMovie endpoint
-    search_url = f'https://imdb-api.com/en/API/SearchMovie/{API_KEY}/{movie_name}'
-    search_response = requests.get(search_url).json()
 
-    # Get the ID of the first search result
-    if search_response['errorMessage']:
-        print(search_response['errorMessage'])
-    else:
-        search_results = search_response['results']
-        if search_results:
-            movie_id = search_results[0]['id']
+# # ======================================= API call ================================= #
+# def API_call(movie_name):
+#     API_KEY = st.secrets["api_key"]
 
-            # Retrieve the movie reviews using the Reviews endpoint
-            reviews_url = f'https://imdb-api.com/en/API/Reviews/{API_KEY}/{movie_id}'
-            reviews_response = requests.get(reviews_url).json()
+#     # Search for the movie using the SearchMovie endpoint
+#     search_url = f'https://imdb-api.com/en/API/SearchMovie/{API_KEY}/{movie_name}'
+#     search_response = requests.get(search_url).json()
 
-            # get all the reviews (['items'][i]['content']) and combine it into one string
-            reviews = [item["content"] for item in reviews_response["items"]]
-            review_text = "\n".join(reviews)
+#     # Get the ID of the first search result
+#     if search_response['errorMessage']:
+#         print(search_response['errorMessage'])
+#     else:
+#         search_results = search_response['results']
+#         if search_results:
+#             movie_id = search_results[0]['id']
 
-            # print the movie name from the api call
-            st.title(search_results[0]['title'])
+#             # Retrieve the movie reviews using the Reviews endpoint
+#             reviews_url = f'https://imdb-api.com/en/API/Reviews/{API_KEY}/{movie_id}'
+#             reviews_response = requests.get(reviews_url).json()
 
-            summary = pegasus_summarize(review_text)
-            st.write("Summary: ")
-            st.write(summary)
+#             # get all the reviews (['items'][i]['content']) and combine it into one string
+#             reviews = [item["content"] for item in reviews_response["items"]]
+#             review_text = "\n".join(reviews)
 
-            # print the movie image from the api call
-            st.image(search_results[0]['image'])
+#             # print the movie name from the api call
+#             st.title(search_results[0]['title'])
 
-        else:
-            print('No search results found.')
+#             summary = pegasus_summarize(review_text)
+#             st.write("Summary: ")
+#             st.write(summary)
+
+#             # print the movie image from the api call
+#             st.image(search_results[0]['image'])
+
+#         else:
+#             print('No search results found.')
 
 
 # =============================== Display UI ============================
@@ -72,8 +72,9 @@ movie_name = st.text_area("Enter the movie name 👇", height=100)
 
 
 # ========================== summarize button ==========================
-if st.button("Summarize"):
-    API_call(movie_name)
+st.button("Summarize")
+# if st.button("Summarize"):
+    # API_call(movie_name)
 
 
 # Hide hamburger menu
