@@ -1,3 +1,4 @@
 transformers
 requests
 torch --index-url https://download.pytorch.org/whl/cu117
+streamlit
