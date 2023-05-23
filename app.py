@@ -6,18 +6,19 @@ import requests
 
 secret_token = st.secrets["access_token"]
 
-# # =========================== Load Pegasus tokenizer and model =============================
+#=========================== Load Pegasus tokenizer and model =============================
 tokenizer = AutoTokenizer.from_pretrained(
-    "Abishani/amrs-cineresum-summarizer", use_auth_token=secret_token
+"Abishani/amrs-cineresum-summarizer", use_auth_token=secret_token
 )
 model = AutoModelForSeq2SeqLM.from_pretrained(
-    "Abishani/amrs-cineresum-summarizer", use_auth_token=secret_token
+"Abishani/amrs-cineresum-summarizer", use_auth_token=secret_token
 )
 max_length = 100
 min_length = 80
 
 
-# # =============== PEGASUS Summarization function ==================#
+#=============== PEGASUS Summarization function ==================#
+@st.cache_resource
 def pegasus_summarize(text):
     tokens = tokenizer(text, truncation=True,
                        padding="longest", return_tensors="pt")
