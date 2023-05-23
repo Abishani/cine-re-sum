@@ -1,20 +1,23 @@
 import streamlit as st
 from transformers import AutoTokenizer, AutoModelForSeq2SeqLM
 import requests
-import secrets_1 as py_secrets
 
-#=========================== Load Pegasus tokenizer and model =============================
+# ==================================== model =================================
+
+secret_token = st.secrets["access_token"]
+
+# # =========================== Load Pegasus tokenizer and model =============================
 tokenizer = AutoTokenizer.from_pretrained(
-    "Abishani/amrs-cineresum-summarizer", use_auth_token=py_secrets.access_token
+    "Abishani/amrs-cineresum-summarizer", use_auth_token=secret_token
 )
 model = AutoModelForSeq2SeqLM.from_pretrained(
-    "Abishani/amrs-cineresum-summarizer", use_auth_token=py_secrets.access_token
+    "Abishani/amrs-cineresum-summarizer", use_auth_token=secret_token
 )
 max_length = 100
 min_length = 80
 
 
-# =============== PEGASUS Summarization function ==================#
+# # =============== PEGASUS Summarization function ==================#
 def pegasus_summarize(text):
     tokens = tokenizer(text, truncation=True,
                        padding="longest", return_tensors="pt")
@@ -31,7 +34,7 @@ def pegasus_summarize(text):
 
 # ======================================= API call ================================= #
 def API_call(movie_name):
-    API_KEY = py_secrets.api_key
+    API_KEY = st.secrets["api_key"]
 
     # Search for the movie using the SearchMovie endpoint
     search_url = f'https://imdb-api.com/en/API/SearchMovie/{API_KEY}/{movie_name}'
@@ -73,6 +76,7 @@ movie_name = st.text_area("Enter the movie name 👇", height=100)
 
 
 # ========================== summarize button ==========================
+
 if st.button("Summarize"):
     API_call(movie_name)
 
