@@ -3,7 +3,7 @@ from transformers import AutoTokenizer, AutoModelForSeq2SeqLM
 import requests
 import secrets_1 as py_secrets
 
-#=========================== Load Pegasus tokenizer and model =============================
+# =========================== Load Pegasus tokenizer and model =============================
 tokenizer = AutoTokenizer.from_pretrained(
     "Abishani/amrs-cineresum-summarizer", use_auth_token=py_secrets.access_token
 )
@@ -55,6 +55,10 @@ def API_call(movie_name):
 
             # print the movie name from the api call
             st.title(search_results[0]['title'])
+
+            # Print the count of reviews
+            st.write("Number of Reviews: ", len(reviews))
+            
 
             summary = pegasus_summarize(review_text)
             st.write("Summary: ")
