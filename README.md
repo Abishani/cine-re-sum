@@ -1,4 +1,4 @@
-# cine-re-sum
+# CineReSum - Cinema Reviews Summary
  Movie Review Summarization web application using finetuned PEGASUS transformer model with rotten tomatoes dataset and streamlit framework.
 
 # How this application works
