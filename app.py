@@ -2,7 +2,7 @@ import streamlit as st
 from transformers import AutoTokenizer, AutoModelForSeq2SeqLM
 import requests
 import secrets_1 as py_secrets
-import webbrowser
+# import webbrowser
 
 # =========================== Load Pegasus tokenizer and model =============================
 tokenizer = AutoTokenizer.from_pretrained(
@@ -70,25 +70,48 @@ def API_call(movie_name):
                 # Print the movie name from the API call
                 st.title(search_results[0]['title'])
 
-                # Print the count of total reviews
-                st.write("Number of Total Reviews:", len(reviews))
+                col1, col2 = st.columns(2, gap="large")
+                # Display the movie image if available, else display "Image not found"
 
-                # If "See All Reviews" button is clicked it will redirect to IMDB website
-                def open_imdb_website():
-                    imdb_link = "https://www.imdb.com/"
-                    webbrowser.open(imdb_link)
+                with col1:
+                    if search_results[0]['image']:
+                        st.image(search_results[0]['image'], width=300)
+                    else:
+                        st.write("Image not found")
 
-                st.button("See All Reviews!", on_click=open_imdb_website)
+                # Retreive the movie ratings using the ratings endpoint
+
+                with col2:
+                    ratings_url = f'https://imdb-api.com/en/API/Ratings/{API_KEY}/{movie_id}'
+                    ratings_response = requests.get(ratings_url).json()
+
+                    if ratings_response['errorMessage']:
+                        print(ratings_response['errorMessage'])
+                        st.write('No ratings found for this movie')
+                    else:
+                        st.write("IMDb Ratings:", ratings_response['imDb'])
+
+                    st.divider()
+
+                    # Print the count of total reviews
+                    st.write("Number of Total Reviews:", len(reviews))
+
+                    # Retreive the movie ratings using the ratings endpoint
+                    # trailer_url = f'https://imdb-api.com/en/API/Trailer/{API_KEY}/{movie_id}'
+                    # trailer_response = requests.get(trailer_url).json()
+
+                    # if st.button('Watch Trailer'):
+                    #     if trailer_response['errorMessage']:
+                    #         print(trailer_response['errorMessage'])
+                    #         st.write('No trailer found for this movie')
+                    #     else:
+                    #         open_trailer = trailer_response['link']
+                    #         webbrowser.open(open_trailer)
 
                 summary = pegasus_summarize("\n".join(reviews))
                 st.write("Summary:")
                 st.write(summary)
 
-                # Display the movie image if available, else display "Image not found"
-                if search_results[0]['image']:
-                    st.image(search_results[0]['image'])
-                else:
-                    st.write("Image not found")
          # else:
          #     print('Movie not found in the search results.')
          #     st.write("Movie is not found. Please enter a different movie.")
@@ -98,9 +121,10 @@ def API_call(movie_name):
 
 
 # =============================== Display UI ============================
-st.title("CineReSum 📽️")
-movie_name = st.text_input("Enter the movie name 👇")
 
+st.title("CineReSum 📽️")
+
+movie_name = st.text_input("Enter the movie name 👇")
 
 # ========================== summarize button ==========================
 if st.button("Summarize"):
