@@ -1,4 +1,10 @@
 transformers
 requests
 torch --index-url https://download.pytorch.org/whl/cu117
-$ curl -X POST -H "Authorization: Bearer YOUR_HUGGINGFACE_API_KEY" -H "Content-Type: application/json" -d '{"inputs": "I love AutoTrain"}' https://api-inference.huggingface.co/Abishani/autotrain-abmrs-56629131288
+https://huggingface.co/Abishani/amrs-cineresum-summarizer/blob/main/tokenizer_config.json
+https://huggingface.co/Abishani/amrs-cineresum-summarizer/blob/main/tokenizer.json
+https://huggingface.co/Abishani/amrs-cineresum-summarizer/blob/main/spiece.model
+https://huggingface.co/Abishani/amrs-cineresum-summarizer/blob/main/special_tokens_map.json
+https://huggingface.co/Abishani/amrs-cineresum-summarizer/blob/main/pytorch_model.bin
+https://huggingface.co/Abishani/amrs-cineresum-summarizer/blob/main/generation_config.json
+https://huggingface.co/Abishani/amrs-cineresum-summarizer/blob/main/config.json
