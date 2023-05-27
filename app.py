@@ -5,12 +5,16 @@ import requests
 # import webbrowser
 
 # =========================== Load Pegasus tokenizer and model =============================
-tokenizer = AutoTokenizer.from_pretrained(
-    "Abishani/amrs-cineresum-summarizer", use_auth_token=st.secrets['access_token']
-)
-model = AutoModelForSeq2SeqLM.from_pretrained(
-    "Abishani/amrs-cineresum-summarizer", use_auth_token=st.secrets['access_token']
-)
+# tokenizer = AutoTokenizer.from_pretrained(
+#     "Abishani/amrs-cineresum-summarizer", use_auth_token=st.secrets['access_token']
+# )
+# model = AutoModelForSeq2SeqLM.from_pretrained(
+#     "Abishani/amrs-cineresum-summarizer", use_auth_token=st.secrets['access_token']
+# )
+
+tokenizer = "https://huggingface.co/Abishani/amrs-cineresum-summarizer/blob/main/tokenizer.json"
+model = "https://huggingface.co/Abishani/amrs-cineresum-summarizer/blob/main/pytorch_model.bin"
+
 max_length = 100
 min_length = 80
 
