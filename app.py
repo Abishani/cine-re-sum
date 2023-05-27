@@ -124,11 +124,6 @@ def API_call(movie_name):
 
 st.title("CineReSum 📽️")
 
-# adding attribution
-st.write("This product uses the IMDb API but is not endorsed or certified by IMDb.")
-st.image("imdb.png")
-st.write("")
-
 movie_name = st.text_input("Enter the movie name 👇")
 
 # ========================== summarize button ==========================
