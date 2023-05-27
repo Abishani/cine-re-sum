@@ -109,7 +109,7 @@ def API_call(movie_name):
                     #         webbrowser.open(open_trailer)
 
                 summary = pegasus_summarize("\n".join(reviews))
-                st.write("Summary:")
+                st.write(f"Summary of {len(reviews)} reviews from IMDb:")
                 st.write(summary)
 
          # else:
