@@ -64,7 +64,7 @@ def API_call(movie_name):
                         print(ratings_response['errorMessage'])
                         st.write('No ratings found for this movie')
                     else:
-                        # st.write("IMDb Rating: ", ratings_response['imDb'])
+
                         imdb_rating = ratings_response['imDb']
                         rotten_tomatoes_rating = ratings_response['rottenTomatoes']
                         metacritic_rating = ratings_response['metacritic']
