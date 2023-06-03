@@ -76,12 +76,6 @@ def API_call(movie_name):
                         st.markdown(
                             f'<p class="big-font">Metacritics Rating: <b>🟩{metacritic_rating}</b>% </p>', unsafe_allow_html=True)
 
-                    # st.divider()
-
-                    # # Print the count of total reviews
-                    # st.write("Total Reviews:")
-                    # st.write("IMDb: ", len(reviews), "reviews")
-
                 summary = summarization_model.pegasus_summarize(
                     "\n".join(reviews))
                 st.write("Summary: ")
