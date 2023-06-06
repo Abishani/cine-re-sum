@@ -1,15 +1,13 @@
 import streamlit as st
 import imdb_api_call as imdb_api_call
-
+import base64
 
 # =============================== Display UI ============================
 # =============================== Display Home page ============================
-# def home():
 
-st.title("CineReSum 📽️")
-st.markdown(
-    "Tired of lengthy movie reviews? Discover the magic of instant movie review summaries in seconds.")
-# st.sidebar.success("Select here")
+st.markdown("<h1 style='text-align: center;font-family: Comic Sans MS; font-size: 50px; color: #FF0060;'>CineReSum📽️</h1>", unsafe_allow_html=True)
+
+st.markdown("<p style='font-family: Comic Sans MS; font-size: 20px;'>Tired of lengthy movie reviews?\nDiscover the magic of instant movie review summaries in seconds.</p>", unsafe_allow_html=True)
 
 movie_name = st.text_input("Enter the movie name 👇")
 
@@ -34,6 +32,4 @@ st.divider()
 # adding attribution
 url = 'https://www.imdb.com/'
 st.markdown(
-    f'''This product uses the IMDb API but is not endorsed or certified by<a href={url}> IMDb</a>.''', unsafe_allow_html=True)
-
-st.image("imdb.png", width=100)
+    f'''<p style='text-align: center;font-size: 15px;'>This product uses the IMDb API but is not endorsed or certified by<a href={url}> IMDb</a>.</p>''', unsafe_allow_html=True)

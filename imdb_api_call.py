@@ -69,12 +69,32 @@ def API_call(movie_name):
                         rotten_tomatoes_rating = ratings_response['rottenTomatoes']
                         metacritic_rating = ratings_response['metacritic']
 
+                    # redirecting to websites
+                    external_link = f'https://imdb-api.com/en/API/ExternalSites/{API_KEY}/{movie_id}'
+                    link_response = requests.get(external_link).json()
+
+                    if link_response['errorMessage']:
+                        print(link_response['errorMessage'])
+                        st.write('No any ratings are available for this movie')
+                        
+                    elif link_response:
+                        imdb = link_response['imDb']['url']
+                        rotten_tomatoes = link_response['rottenTomatoes']['url']
+                        metacritic = link_response['metacritic']['url']
+
+                        st.markdown(
+                            f'<p class="big-font">IMDb Rating: <a href={imdb}><b>⭐{imdb_rating}</b> /10</a></p>', unsafe_allow_html=True)
+                        st.markdown(
+                            f'<p class="big-font">Rotten Tomatoes Rating:<a href={rotten_tomatoes}> <b>🍅{rotten_tomatoes_rating}</b>% </a></p>', unsafe_allow_html=True)
+                        st.markdown(
+                            f'<p class="big-font">Metacritics Rating:<a href={metacritic}><b>🟩{metacritic_rating}</b>% </a></p>', unsafe_allow_html=True)
+                    else:
                         st.markdown(
                             f'<p class="big-font">IMDb Rating: <b>⭐{imdb_rating}</b> /10</p>', unsafe_allow_html=True)
                         st.markdown(
                             f'<p class="big-font">Rotten Tomatoes Rating: <b>🍅{rotten_tomatoes_rating}</b>% </p>', unsafe_allow_html=True)
                         st.markdown(
-                            f'<p class="big-font">Metacritics Rating: <b>🟩{metacritic_rating}</b>% </p>', unsafe_allow_html=True)
+                            f'<p class="big-font">Metacritics Rating:<b>🟩{metacritic_rating}</b>% </p>', unsafe_allow_html=True)
 
                 summary = summarization_model.pegasus_summarize(
                     "\n".join(reviews))

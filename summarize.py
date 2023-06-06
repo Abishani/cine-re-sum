@@ -9,7 +9,7 @@ tokenizer = AutoTokenizer.from_pretrained(
 model = AutoModelForSeq2SeqLM.from_pretrained(
     "Abishani/amrs-cineresum-summarizer", use_auth_token=py_secrets.access_token
 )
-max_length = 180
+max_length = 120
 min_length = 100
 
 
