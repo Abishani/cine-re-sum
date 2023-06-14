@@ -76,7 +76,7 @@ def API_call(movie_name):
                     if link_response['errorMessage']:
                         print(link_response['errorMessage'])
                         st.write('No any ratings are available for this movie')
-                        
+
                     elif link_response:
                         imdb = link_response['imDb']['url']
                         rotten_tomatoes = link_response['rottenTomatoes']['url']

@@ -5,9 +5,8 @@ import base64
 # =============================== Display UI ============================
 # =============================== Display Home page ============================
 
-st.markdown("<h1 style='text-align: center;font-family: Comic Sans MS; font-size: 50px; color: #FF0060;'>CineReSum📽️</h1>", unsafe_allow_html=True)
+st.markdown("<h1 style='text-align: center;font-family: Comic Sans MS; font-size: 50px; color: #7395a3;'>CineReSum📽️</h1>", unsafe_allow_html=True)
 
-st.markdown("<p style='font-family: Comic Sans MS; font-size: 20px;'>Tired of lengthy movie reviews?\nDiscover the magic of instant movie review summaries in seconds.</p>", unsafe_allow_html=True)
 
 movie_name = st.text_input("Enter the movie name 👇")
 
